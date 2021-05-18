@@ -1,42 +1,37 @@
-from .scholix_v1 import api_v1
 from flask_restx import fields
+from .parser_arguments import *
 
-LinkProvider = api_v1.model("LinkProvider", {
-    'name': fields.String(required=True, description='The name of the Provider that provides the links'),
-    'totalRelationships': fields.Integer(required=True, description='The number of links that It provides'),
-})
-
-LinkPublisher = api_v1.model("LinkPublisher", {
+LinkPublisher = api_v1.model("LinkPublisher  1.0", {
     'name': fields.String(required=True, description='The name of the Publisher that provides the links'),
     'totalRelationships': fields.String(required=True, description='The number of links that It provides'),
 })
 
-IdentifierType = api_v1.model("IdentifierType", {
+IdentifierType = api_v1.model("IdentifierType  1.0", {
     'identifier': fields.String(required=False, description='The value of the identifier'),
     'schema': fields.String(required=False, description='the schema resource of the identifier')
 })
 
-ScholixProviderType = api_v1.model("ScholixProviderType", {
+ScholixProviderType = api_v1.model("ScholixProviderType 1.0", {
     'name': fields.String(required=True, description='The name of the provider'),
     'identifiers': fields.List(fields.Nested(IdentifierType))
 })
-RelationshipType = api_v1.model("RelationshipType", {
+RelationshipType = api_v1.model("RelationshipType 1.0", {
     'name': fields.String(required=True, description='The name of the Relation'),
     'schema': fields.String(required=False, description='The schema URL of the relationship'),
     'inverseRelationship': fields.String(required=False, description='The value of the inverse Relation')
 })
 
-CreatorType = api_v1.model("CreatorType", {
+CreatorType = api_v1.model("CreatorType 1.0", {
     'name': fields.String(required=False, description='The name of the author'),
     'identifiers': fields.List(fields.Nested(IdentifierType))
 })
 
-ScholixObjectType = api_v1.model("ScholixObjectType", {
+ScholixObjectType = api_v1.model("ScholixObjectType 1.0", {
     'type': fields.String(required=True, description='The typology of the object'),
     'subtype': fields.String(required=False, description='The subtype of the object'),
 })
 
-ScholixItemType = api_v1.model("ScholixItemType", {
+ScholixItemType = api_v1.model("ScholixItemType 1.0", {
     'identifiers': fields.List(fields.Nested(IdentifierType)),
     'title': fields.String(required=False, description='The Title'),
     'objectType': fields.Nested(ScholixObjectType),
@@ -84,7 +79,7 @@ source_example = {
             }
         }
 
-ScholixType = api_v1.model("ScholixType", {
+ScholixType = api_v1.model("ScholixType 1.0", {
     'linkProvider': fields.List(fields.Nested(ScholixProviderType)),
     'publicationDate': fields.String(required=False, description='The date of publication of scholix link'),
     'relationship': fields.Nested(RelationshipType),
